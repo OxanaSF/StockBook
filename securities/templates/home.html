@@ -1,0 +1,26 @@
+{% extends 'base.html'  %}
+{% block content %}
+
+{% if symbol %}
+    {{ symbol }}
+{%endif %}
+
+{{ api.companyName }}
+{% if api %}
+    {% if api == 'Error...' %}
+        There was a probblem your ticker symbol,
+        please try again
+    {% else %}
+        <h6>Symbol: {{ api.companyName }}</h6><br/>
+        <h6>Price: ${{ api.latestPrice }}</h6><br/>
+        <h6>Previous Close: ${{ api.previousClose }}</h6><br/>
+        <h6>YTD Change:{{ api.ytdChange }}</h6><br/>
+        <h6>52 Week High:{{ api.week52High }}</h6><br/>
+        <h6>52 Week Low:{{ api.week52Low }}</h6><br/>
+    
+    {% endif %}
+
+{% endif %}
+
+
+{% endblock %}
