@@ -6,66 +6,92 @@
 <form action="{% url 'add_stock' %}" class="form-inline my-2 my-lg-0" method="POST">
     {% csrf_token %}
     <input class="form-control mr-sm-2" type="search" placeholder="type stock symbol" aria-label="Search" name="symbol">
-    <button class="btn btn-outline-info  my-2 my-sm-0" type="submit">Add Srock</button>
+    <button class="btn btn-outline-info  my-2 my-sm-0" type="submit">add stock</button>
 </form>
 <br />
 <br />
 
-<table class="table table-hover">
-    <thead>
-        <tr class="table-info">
-            <th scope="col">Company Ticker</th>
-            <th scope="col">Price</th>
-            <th scope="col">Open</th>
-            <th scope="col">Close</th>
-            <th scope="col">High</th>
-            <th scope="col">Low</th>
-            <th scope="col">Market Cap</th>
-            <th scope="col">P/E ratio</th>
-            <th scope="col">Previous Close</th>
-            <th scope="col">52-wk high</th>
-            <th scope="col">52-wk low</th>
-    
-         
-        </tr>
-    </thead>
-    <tbody>
-        {% if symbol %}
-        {% for item in output %}
-        <tr>
-            <th scope="row">{{ item.companyName }}</th>
-            <td>${{ item.latestPrice }}</td>
-            <td>${{ item.open }}</td>
-            <td>${{ item.close }}</td>
-            <td>{{ item.high }}%</td>
-            <td>{{ item.low }}%</td>
-            <td>${{ item.marketCap }}</td>
-            <td>${{ item.peRatio }}</td>
-            <td>${{ item.previousClose }}</td>
-            <td>${{ item.week52High }}</td>
-            <td>${{ item.week52Low }}</td>
-            
-            
 
-        </tr>
-        {% endfor %}
+<div class="row">
+    <div class="col-11.5" id="left">
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-secondary">
+                    <th scope="col">Company Ticker</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Open</th>
+                    <th scope="col">Close</th>
+                    <th scope="col">High</th>
+                    <th scope="col">Low</th>
+                    <!-- <th scope="col">Market Cap</th> -->
+                    <th scope="col">P/E ratio</th>
+                    <th scope="col">Previous Close</th>
+                    <th scope="col">52-wk high</th>
+                    <th scope="col">52-wk low</th>
 
 
 
+                </tr>
+            </thead>
+            <tbody>
+                {% if symbols %}
+                {% for item in output %}
+                <tr>
+                    <th scope="row"><div>{{ item.companyName }}</div><br/></th>
+                    <td>${{ item.latestPrice }}</td>
+                    <td>${{ item.open }}</td>
+                    <td>${{ item.close }}</td>
+                    <td>{{ item.high }}%</td>
+                    <td>{{ item.low }}%</td>
+                    <!-- <td>${{ item.marketCap }}</td> -->
+                    <td>${{ item.peRatio }}</td>
+                    <td>${{ item.previousClose }}</td>
+                    <td>${{ item.week52High }}</td>
+                    <td>${{ item.week52Low }}</td>
 
 
+                </tr>
+                {% endfor %}
 
-    </tbody>
-</table>
-{% endif %}
+                {% endif %}
 
 
 
 
-<br />
-<br />
+            </tbody>
+        </table>
+
+    </div>
+
+    <br />
+    <br />
+
+    <div class="col-0.5" id="center">
+        <table class="table table-hover">
+            <thead>
+                <tr class="table-secondary">
+                    <th scope="col">Delete<br/></th>
+                
 
 
 
+                </tr>
+            </thead>
 
+            <tbody>
+                {% if symbols %}
+                {% for item in symbols %}
+                <tr>
+                <td><a href="{% url 'delete' item.id %}" style="color:rgb(209, 105, 122);"><div>delete</div><br/></a></td>
+                
+
+                </tr>
+                {% endfor %}
+
+                {% endif %}
+
+    </div>
+
+</div>
 {% endblock %}

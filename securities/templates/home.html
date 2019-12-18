@@ -1,26 +1,50 @@
 {% extends 'base.html'  %}
 {% block content %}
 
-{% if symbol %}
-    {{ symbol }}
-{%endif %}
+<div class="row">
 
-{{ api.companyName }}
+    <div class="col-4">
+
+<form action="{% url 'home' %}" class="form-inline my-2 my-lg-0" method="POST">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Stock Symbol" aria-label="Search" name="symbol">
+        <button class="btn btn-outline-info  my-2 my-sm-0" type="submit">Search</button>
+      </form>
+
+</div>
+
+<div class="col-8">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+        
 {% if api %}
     {% if api == 'Error...' %}
         There was a probblem your ticker symbol,
         please try again
     {% else %}
-        <h6>Symbol: {{ api.companyName }}</h6><br/>
-        <h6>Price: ${{ api.latestPrice }}</h6><br/>
-        <h6>Previous Close: ${{ api.previousClose }}</h6><br/>
-        <h6>YTD Change:{{ api.ytdChange }}</h6><br/>
-        <h6>52 Week High:{{ api.week52High }}</h6><br/>
-        <h6>52 Week Low:{{ api.week52Low }}</h6><br/>
+    <div class="card" style="width: 23rem;">
+            <div class="card-body">
+              <h5 class="card-title">Symbol: {{ api.companyName }}</h5><br/>
+              <h6 class="card-subtitle mb-2 text-muted">Price: ${{ api.latestPrice }}</h6><br/>
+              <h6 class="card-subtitle mb-2 text-muted">Previous Close: ${{ api.previousClose }}</h6><br/>
+              <h6 class="card-subtitle mb-2 text-muted">YTD Change: {{ api.ytdChange }}</h6><br/>
+              <h6 class="card-subtitle mb-2 text-muted">52 Week High: {{ api.week52High }}</h6><br/>
+              <h6 class="card-subtitle mb-2 text-muted">52 Week Low: {{ api.week52Low }}</h6><br/>
+              
+            </div>
+          </div>
+        
     
     {% endif %}
 
 {% endif %}
 
+
+</div>
+</div>
 
 {% endblock %}
